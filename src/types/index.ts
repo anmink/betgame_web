@@ -19,9 +19,14 @@ export interface Match {
   odd_away: number | null
 }
 
-export interface MatchesResponse {
-  current: Match[]
+export interface Round {
+  round: string
+  matches: Match[]
 }
+
+/* export interface MatchesResponse {
+  current: Round
+} */
 
 // ------- Bet -------
 export type Prediction = 'home' | 'draw' | 'away'
