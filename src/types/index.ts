@@ -37,6 +37,13 @@ export interface Bet {
   matches?: Match
 }
 
+export interface CreateBetPayload {
+  match_id: string
+  amount: number
+  odds: number
+  prediction: Prediction
+}
+
 // ------- User -------
 export interface User {
   id: string
