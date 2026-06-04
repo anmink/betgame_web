@@ -20,10 +20,22 @@
       <div v-for="match in matches" :key="match.round">
         <h2 class="text-lg font-semibold text-gray-700 mb-3">Spieltag {{ match.round }}</h2>
         <div class="space-y-3">
-          <GameCard v-for="game in match.matches" :key="game.fixture_id" :game="game" />
+          <GameCard
+            v-for="game in match.matches"
+            :key="game.fixture_id"
+            :game="game"
+            @select="openBetForm"
+          />
         </div>
       </div>
     </div>
+
+    <BetForm
+      v-if="selectedGame"
+      :game="selectedGame"
+      @close="selectedGame = null"
+      @submitted="onBetSubmitted"
+    />
   </div>
 </template>
 
@@ -32,6 +44,16 @@ import { ref } from 'vue'
 import type { Match } from '@/types'
 import { useMatches } from '@/composables/useMatches'
 import GameCard from '@/components/GameCard.vue'
+import BetForm from '@/components/BetForm.vue'
 
 const { matches, isLoading, error, refetch } = useMatches()
+const selectedGame = ref<Match | null>(null)
+
+function openBetForm(game: Match): void {
+  selectedGame.value = game
+}
+
+function onBetSubmitted(): void {
+  selectedGame.value = null
+}
 </script>
