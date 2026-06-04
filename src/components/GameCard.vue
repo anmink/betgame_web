@@ -20,6 +20,7 @@
         </span>
         <span v-else class="text-lg font-bold text-gray-400">VS</span>
         <span class="text-xs text-gray-500 mt-1">{{ formattedDate }}</span>
+        <span>{{ game.fixture_status }}</span>
       </div>
 
       <div class="flex flex-col items-center gap-1 w-2/5">
