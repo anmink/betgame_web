@@ -1,45 +1,15 @@
-<script setup lang="ts">
-import { computed } from 'vue'
-import type { Match } from '@/types'
-
-interface Props {
-  game: Match
-}
-
-const props = defineProps<Props>()
-
-const emit = defineEmits<{
-  select: [game: Match]
-}>()
-
-const isFinished = computed<boolean>(() =>
-  ['FT', 'AET', 'PEN', 'Match Finished'].includes(props.game.fixture_status),
-)
-
-const formattedDate = computed<string>(() => {
-  if (!props.game.fixture_date) return ''
-  return new Date(props.game.fixture_date).toLocaleDateString('de-DE', {
-    weekday: 'short',
-    day: '2-digit',
-    month: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-})
-</script>
-
 <template>
   <div
     class="bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition-shadow"
     @click="emit('select', game)"
   >
     <div class="flex items-center justify-between mb-4">
-      <div class="flex flex-col items-center gap-1 w-2">
+      <div class="flex flex-col items-center gap-1 w-2/5">
         <img
           v-if="game.teamhome_logo"
           :src="game.teamhome_logo"
           :alt="game.teamhome_name"
-          class="w-4 h-4 object-contain"
+          class="w-12 h-12 object-contain"
         />
         <span class="text-sm font-semibold text-center">{{ game.teamhome_name }}</span>
       </div>
@@ -79,3 +49,30 @@ const formattedDate = computed<string>(() => {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import type { Match } from '@/types'
+
+interface Props {
+  game: Match
+}
+const props = defineProps<Props>()
+
+const emit = defineEmits<{
+  select: [game: Match]
+}>()
+
+const isFinished = computed<boolean>(() => ['FT', 'AET', 'PEN'].includes(props.game.fixture_status))
+
+const formattedDate = computed<string>(() => {
+  if (!props.game.fixture_date) return ''
+  return new Date(props.game.fixture_date).toLocaleDateString('de-DE', {
+    weekday: 'short',
+    day: '2-digit',
+    month: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+})
+</script>
