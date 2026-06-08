@@ -1,54 +1,122 @@
 # betgame-web
 
-This template should help get you started developing with Vue 3 in Vite.
+Web-Frontend für das Betgame-Sportwettspiel — entwickelt mit Vue 3 und TypeScript. Nutzer können sich einloggen, anstehende Fußballspiele durchsuchen, Wetten auf Spielausgänge platzieren und ihre Wetthistorie sowie ihren Kontostand einsehen.
 
-## Recommended IDE Setup
+Verbindet sich mit dem [backend_betgame](https://github.com/anmink/backend_betgame) FastAPI-REST-Backend.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## Tech Stack
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+| Bereich | Technologie |
+|---|---|
+| Framework | Vue 3 (Composition API) |
+| Sprache | TypeScript (strict) |
+| Build-Tool | Vite |
+| State Management | Pinia |
+| Routing | Vue Router |
+| HTTP-Client | Axios |
+| Styling | Tailwind CSS v4 |
+| Tests | Vitest · @vue/test-utils |
+| Linting | ESLint · OXLint |
+| Formatierung | Prettier |
+| CI/CD | GitHub Actions |
 
-## Type Support for `.vue` Imports in TS
+---
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Features
 
-## Customize configuration
+- **Authentifizierung** — Login und Registrierung mit JWT-Token-Verwaltung über Axios-Interceptors
+- **Spielübersicht** — Liste anstehender Fußball-Fixtures mit aktuellen Quoten
+- **Wetten platzieren** — Ergebnis wählen (Heim / Unentschieden / Auswärts), Einsatz eingeben
+- **Wetthistorie** — Übersicht aller platzierten Wetten mit Status und Ergebnis
+- **Kontostand** — Guthaben live im Header
+- **Typsicherheit** — Vollständig typisierte Komponenten, Stores und API-Schicht mit TypeScript strict mode
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+---
 
-## Project Setup
+## Projektstruktur
 
-```sh
-npm install
+```
+betgame_web/
+├── src/
+│   ├── components/       # Wiederverwendbare Vue-Komponenten
+│   ├── views/            # Seiten-Komponenten (Matches, Bets, Login, ...)
+│   ├── stores/           # Pinia Stores (Auth, Matches, Bets)
+│   ├── services/         # Axios API-Client mit Interceptors
+│   ├── types/            # TypeScript-Interfaces und -Types
+│   ├── composables/      # Wiederverwendbare Composition Functions
+│   └── router/           # Vue Router Konfiguration
+├── .github/workflows/    # GitHub Actions CI-Pipeline
+├── public/
+├── index.html
+├── vite.config.ts
+├── vitest.config.ts
+└── tsconfig.json
 ```
 
-### Compile and Hot-Reload for Development
+---
 
-```sh
+## Schnellstart
+
+### Voraussetzungen
+
+- Node.js 20.19+ oder 22.12+
+- Laufendes [backend_betgame](https://github.com/anmink/backend_betgame)
+
+### Lokale Einrichtung
+
+```bash
+# Repository klonen
+git clone https://github.com/anmink/betgame_web.git
+cd betgame_web
+
+# Abhängigkeiten installieren
+npm install
+
+# Entwicklungsserver starten
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Die App läuft unter `http://localhost:5173`.
 
-```sh
+### Produktions-Build
+
+```bash
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+---
 
-```sh
-npm run test:unit
-```
+## Verfügbare Befehle
 
-### Lint with [ESLint](https://eslint.org/)
+| Befehl | Beschreibung |
+|---|---|
+| `npm run dev` | Entwicklungsserver mit Hot-Reload starten |
+| `npm run build` | TypeScript-Check + Produktions-Build |
+| `npm run test:unit` | Unit-Tests mit Vitest ausführen |
+| `npm run lint` | OXLint + ESLint ausführen (mit Auto-Fix) |
+| `npm run format` | Code mit Prettier formatieren |
+| `npm run type-check` | TypeScript-Typen prüfen (ohne Build) |
 
-```sh
-npm run lint
-```
+---
+
+## CI/CD
+
+Jeder Push auf `main` löst eine GitHub Actions Pipeline aus, die:
+
+1. TypeScript-Typen prüft (`vue-tsc --build`)
+2. Unit-Tests ausführt (`vitest run`)
+3. Einen Produktions-Build validiert (`vite build`)
+
+---
+
+## Verwandte Repositories
+
+- **Backend:** [backend_betgame](https://github.com/anmink/backend_betgame) — FastAPI · PostgreSQL · Docker · GitHub Actions
+
+---
+
+## Status
+
+In aktiver Entwicklung.
