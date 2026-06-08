@@ -2,9 +2,9 @@ import type {
   AuthResponse,
   LoginCredentials,
   User,
-  MatchesResponse,
   Bet,
   CreateBetPayload,
+  MatchesResponse,
 } from '@/types'
 import axios from 'axios'
 

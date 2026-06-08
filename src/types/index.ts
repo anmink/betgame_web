@@ -24,9 +24,11 @@ export interface Round {
   matches: Match[]
 }
 
-/* export interface MatchesResponse {
-  current: Round
-} */
+export interface MatchesResponse {
+  current: Round[]
+  past: Round[]
+  future: Round[]
+}
 
 // ------- Bet -------
 export type Prediction = 'home' | 'draw' | 'away'

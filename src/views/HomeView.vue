@@ -12,12 +12,12 @@
       <button @click="refetch" class="ml-2 underline">Nochmal versuchen</button>
     </div>
 
-    <div v-else-if="matches.length === 0" class="text-center py-12 text-gray-500">
+    <div v-else-if="!matches.current.length" class="text-center py-12 text-gray-500">
       Keine Spiele verfügbar.
     </div>
 
     <div v-else class="space-y-8">
-      <div v-for="match in matches" :key="match.round">
+      <div v-for="match in matches.current" :key="match.round">
         <h2 class="text-lg font-semibold text-gray-700 mb-3">Spieltag {{ match.round }}</h2>
         <div class="space-y-3">
           <GameCard

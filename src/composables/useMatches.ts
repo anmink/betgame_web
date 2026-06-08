@@ -1,18 +1,18 @@
 // src/composables/useMatches.ts
 import { ref, onMounted } from 'vue'
 import type { Ref } from 'vue'
-import type { Round } from '@/types'
+import type { MatchesResponse } from '@/types'
 import { getMatches } from '@/services/api'
 
 interface UseMatchesReturn {
-  matches: Ref<Round[]>
+  matches: Ref<MatchesResponse>
   isLoading: Ref<boolean>
   error: Ref<string | null>
   refetch: () => Promise<void>
 }
 
 export function useMatches(): UseMatchesReturn {
-  const matches = ref<Round[]>([])
+  const matches = ref<MatchesResponse>({ current: [], past: [], future: [] })
   const isLoading = ref<boolean>(true)
   const error = ref<string | null>(null)
 
@@ -21,8 +21,7 @@ export function useMatches(): UseMatchesReturn {
     error.value = null
     try {
       const data = await getMatches()
-      matches.value = data.current
-      console.log('matches', matches.value)
+      matches.value = data
     } catch (err: unknown) {
       error.value = err instanceof Error ? err.message : 'Spiele konnten nicht geladen werden.'
     } finally {

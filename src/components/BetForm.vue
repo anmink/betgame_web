@@ -57,8 +57,8 @@ const isValid = computed<boolean>(
 )
 
 async function submitBet(): Promise<void> {
-  if (!isValid.value || !form.value.prediction || !form.value.amount)
-    return (isSubmitting.value = true)
+  if (!isValid.value || !form.value.prediction || !form.value.amount) return
+  isSubmitting.value = true
   try {
     await betStore.createBet({
       match_id: String(props.game.fixture_id),
